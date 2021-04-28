@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,4 +30,11 @@ Route::get('/test', function (Request $request) {
 });
 
 //Products Route
-Route::get('products', [ProductController::class, 'index']);
+Route::namespace('Api')->prefix('products')->group(function(){
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+    Route::post('/', [ProductController::class, 'save']);
+
+});
+
+
